@@ -52,19 +52,18 @@ class HashTable:
                 return True
             else:
                 return False
-
+      
     def put(self, key, data):
         slot = self.hash_function(key, self.size);
         result = self.put_data_in_slot(key,data,slot);
         while not result:
             slot = self.rehash(slot, self.size);
             result=self.put_data_in_slot(key,data,slot);
-
+            
     #reminder method
     def hash_function(self, key, size):
         return key % size
 
-    #plus 1
     def rehash(self, old_hash, size):
         return (old_hash + 1) % size
 
@@ -83,11 +82,11 @@ class HashTable:
                 if position == start_slot:
                     stop = True
         return data
-
+        
     def __getitem__(self, key):
         return self.get(key)
 
-    def __setitem__(self, key, data):
+     def __setitem__(self, key, data):
         self.put(key, data)
 
 
