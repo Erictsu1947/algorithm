@@ -5,53 +5,53 @@ thers ars some code about search.I copy those from a webpage:
 
 sequential search:
 
-def sequential_search(a_list, item):
-    pos = 0
-    found = False
-    while pos < len(a_list) and not found:
-        if a_list[pos] == item:
-            found = True
-        else:
-            pos = pos+1
-    return found
+    #about code
+    def sequential_search(a_list, item):
+        pos = 0
+        found = False
+        while pos < len(a_list) and not found:
+            if a_list[pos] == item:
+                found = True
+            else:
+                pos = pos+1
+        return found
 
 binary search:
 
-def binary_search(a_list, item):
-    first = 0
-    last = len(a_list) - 1
-    found = False
-    while first <= last and not found:
-        midpoint = first + (last - first) // 2
-        if a_list[midpoint] == item:
-            found = True
-       else:
-            if item < a_list[midpoint]:
-                last = midpoint - 1
-            else:
-                first = midpoint + 1
-    return found
+    def binary_search(a_list, item):
+        first = 0
+        last = len(a_list) - 1
+        found = False
+        while first <= last and not found:
+            midpoint = first + (last - first) // 2
+            if a_list[midpoint] == item:
+                found = True
+           else:
+                if item < a_list[midpoint]:
+                    last = midpoint - 1
+                else:
+                    first = midpoint + 1
+        return found
 
 hash table:
 
-class HashTable:
-    def __init__(self):
-        self.size = 11
-        self.slots = [None] * self.size
-        self.data = [None] * self.size
-
-    #put data in slot
+    class HashTable:
+        def __init__(self):
+            self.size = 11
+            self.slots = [None] * self.size
+            self.data = [None] * self.size
+            
     def put_data_in_slot(self,key,data,slot):
-        if self.slots[slot] == None: # '==None' ? or  'is None' ?
-            self.slots[slot] = key
-            self.data[slot] = data
-            return True
-        else:
-            if self.slots[slot] == key: # not None
-                self.data[slot] = data #replace
+            if self.slots[slot] == None: # '==None' ? or  'is None' ?
+                self.slots[slot] = key
+                self.data[slot] = data
                 return True
             else:
-                return False
+                if self.slots[slot] == key: # not None
+                    self.data[slot] = data #replace
+                    return True
+                else:
+                    return False
       
     def put(self, key, data):
         slot = self.hash_function(key, self.size);
@@ -63,10 +63,10 @@ class HashTable:
     #reminder method
     def hash_function(self, key, size):
         return key % size
-
+        
     def rehash(self, old_hash, size):
         return (old_hash + 1) % size
-
+        
     def get(self, key):
         start_slot = self.hash_function(key, len(self.slots))
         data = None
@@ -85,20 +85,19 @@ class HashTable:
         
     def __getitem__(self, key):
         return self.get(key)
-
+        
      def __setitem__(self, key, data):
         self.put(key, data)
-
-
-if __name__ == '__main__':
-    table=HashTable();
-    table[54]='cat';
-    table[26]='dog';
-    table[93]='lion';
-    table[17]="tiger";
-    table[77]="bird";
-    table[44]="goat";
-    table[55]="pig";
-    table[20]="chicken";
-    print table.slots;
-    print table.data;
+        
+    if __name__ == '__main__':
+        table=HashTable();
+        table[54]='cat';
+        table[26]='dog';
+        table[93]='lion';
+        table[17]="tiger";
+        table[77]="bird";
+        table[44]="goat";
+        table[55]="pig";
+        table[20]="chicken";
+        print table.slots;
+        print table.data;
