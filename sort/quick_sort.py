@@ -5,15 +5,17 @@ class Solution:
     def __init__(self):
         pass
 
+    def swap(self, nums, m, n):
+        nums[m], nums[n] = nums[n], nums[m]
+
     def partition(self, nums, low, high):
         temp = nums[low]
         while low < high:
             while low < high and nums[high] > temp:
                 high -= 1
-            nums[low] = nums[high]
             while low < high and nums[low] < temp:
                 low += 1
-            nums[high] = nums[low]
+            self.swap(nums, low, high)
         nums[low] = temp
         return low
 
@@ -37,21 +39,23 @@ def swap(arr, m, n):
 
 # 用迭代的方式实现一个版本
 
+
 def partition(arr, low, high):
+    print(arr, low, high)
     temp = arr[high]
     i = low - 1
     for j in range(low, high-1):
         if arr[j] < temp:
             i += 1
             swap(arr, i, j)
-    swap(arr, i+1, high)
+    if arr[i+1] > temp:
+        swap(arr, i+1, high)
     return i+1
 
 
 def q_sort(arr: list, start: int, end: int):
     if start < end:
         pivot = partition(arr, start, end)
-        print(pivot)
         q_sort(arr, start, pivot - 1)
         q_sort(arr, pivot + 1, end)
     return arr

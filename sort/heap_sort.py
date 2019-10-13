@@ -74,13 +74,18 @@ def max_heapify(heap, heapSize, root):
         max_heapify(heap, heapSize, max_node)
 
 
-def heap_sort(unsorted):
-
+def build_max_heap(unsorted):
     n = len(unsorted)
 
     for i in range((n-2)//2, -1, -1):
         max_heapify(unsorted, n, i)
 
+
+def heap_sort(unsorted):
+
+    build_max_heap(unsorted)
+
+    n = len(unsorted)
     sorted_list = []
     for i in range(n - 1, -1, -1):
         unsorted[0], unsorted[-1] = unsorted[-1], unsorted[0]
