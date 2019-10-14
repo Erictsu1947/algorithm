@@ -13,7 +13,7 @@ class Solution:
         while low < high:
             while low < high and nums[high] > temp:
                 high -= 1
-            while low < high and nums[low] < temp:
+            while low < high and nums[low] <= temp:
                 low += 1
             self.swap(nums, low, high)
         nums[low] = temp
