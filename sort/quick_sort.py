@@ -1,70 +1,37 @@
 
-
-class Solution:
-
-    def __init__(self):
-        pass
-
-    def swap(self, nums, m, n):
-        nums[m], nums[n] = nums[n], nums[m]
-
-    def partition(self, nums, low, high):
-        temp = nums[low]
-        while low < high:
-            while low < high and nums[high] > temp:
-                high -= 1
-            while low < high and nums[low] <= temp:
-                low += 1
-            self.swap(nums, low, high)
-        nums[low] = temp
-        return low
-
-    def q_sort(self, nums: list, start: int, end: int):
-        if start < end:
-            pivot = self.partition(nums, start, end)
-            self.q_sort(nums, start, pivot - 1)
-            self.q_sort(nums, pivot + 1, end)
-        return nums
-
-    def quick_sort(self, nums):
-        return self.q_sort(nums, 0, len(nums) - 1)
+def partition_1(arr, l, h):
+    temp = arr[l]
+    while l < h:
+        while l < h and arr[h] > temp:
+            h -= 1
+        arr[l] = arr[h]
+        while l < h and arr[l] <= temp:
+            l += 1
+        arr[h] = arr[l]
+    arr[l] = temp
+    return l
 
 
-# nums = [3, 2, 1, 5, 6, 4]
-# result = Solution().quick_sort(nums)
-# print(result)
-
-def swap(arr, m, n):
-    arr[m], arr[n] = arr[n], arr[m]
-
-# 用迭代的方式实现一个版本
-
-
-def partition(arr, low, high):
-    print(arr, low, high)
-    temp = arr[high]
-    i = low - 1
-    for j in range(low, high-1):
+def partition(arr, l, h):
+    temp = arr[h]
+    i = l - 1
+    for j in range(l, h):
         if arr[j] < temp:
             i += 1
-            swap(arr, i, j)
-    if arr[i+1] > temp:
-        swap(arr, i+1, high)
+            arr[j], arr[i] = arr[i], arr[j]
+
+    arr[h], arr[i+1] = arr[i+1], arr[h]
     return i+1
 
 
-def q_sort(arr: list, start: int, end: int):
-    if start < end:
-        pivot = partition(arr, start, end)
-        q_sort(arr, start, pivot - 1)
-        q_sort(arr, pivot + 1, end)
+def quick_sort(arr, l, h):
+    if l < h:
+        pivot = partition(arr, l, h)
+        quick_sort(arr, l, pivot - 1)
+        quick_sort(arr, pivot + 1, h)
     return arr
 
 
-def quick_sort(arr):
-    return q_sort(arr, 0, len(arr) - 1)
-
-
-nums = [3, 2, 1, 5, 6, 4]
-result = quick_sort(nums)
+nums = [3, 2, 3, 1, 8, 5, 6, 4]
+result = quick_sort(nums, 0, len(nums)-1)
 print(result)
